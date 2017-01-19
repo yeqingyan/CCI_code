@@ -19,8 +19,24 @@ class Stack(object):
         self.top = self.top.next
         return pop_node.val
 
-    def peek():
+    def peek(self):
+        if self.isEmpty():
+            return None
         return self.top.val
 
-    def isEmpty():
+    def isEmpty(self):
         return not self.top
+
+    @staticmethod
+    def print_stack(stack):
+        temp = Stack()
+        while not stack.isEmpty():
+            val = stack.pop()
+            print(val)
+            temp.push(val)
+
+        while not temp.isEmpty():
+            stack.push(temp.pop())
+
+
+        
