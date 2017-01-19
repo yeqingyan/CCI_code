@@ -1,4 +1,5 @@
 """ Question 3.3  """
+import random
 
 
 class StackOfPlates(object):
@@ -26,28 +27,27 @@ class StackOfPlates(object):
             self.current_threshold += 1
             self.num_stacks += 1
         else:
-            if self.current_threshold >= self.THRESHOLD:    # push to a full stack
+            if self.current_threshold >= self.THRESHOLD:  # push to a full stack
                 new_top_node = StackOfPlates.TopNode(new_node)
                 new_top_node.next = self.top_nodes
                 self.top_nodes = new_top_node
                 self.current_threshold = 1
                 self.num_stacks += 1
-            else:   # normal push
+            else:  # normal push
                 new_node.next = self.top_nodes.node
                 self.top_nodes.node = new_node
                 self.current_threshold += 1
-        # print("threshold {} stacks {}".format(self.current_threshold, self.num_stacks))
 
     def pop(self):
         if not self.top_nodes:
             return None
         pop_node = None
-        if self.top_nodes.node.next == None:    # pop the last node in Stack
+        if not self.top_nodes.node.next:  # pop the last node in Stack
             pop_node = self.top_nodes.node
             self.top_nodes = self.top_nodes.next
             self.current_threshold = self.THRESHOLD
             self.num_stacks -= 1
-        else:   # normal pop
+        else:  # normal pop
             pop_node = self.top_nodes.node
             self.top_nodes.node = self.top_nodes.node.next
             self.current_threshold -= 1
@@ -61,13 +61,13 @@ class StackOfPlates(object):
 
     def popAt(self, index):
         temp_stack = []
-        size = self.current_threshold + self.THRESHOLD * (self.num_stacks-1)
+        size = self.current_threshold + self.THRESHOLD * (self.num_stacks - 1)
         pop_times = size - index
         if pop_times < 0:
             return None
 
         i = 0
-        while i != pop_times: 
+        while i != pop_times:
             temp_stack.append(self.pop())
             i += 1
         return_node = temp_stack.pop()
@@ -76,7 +76,6 @@ class StackOfPlates(object):
         return return_node
 
 
-import random 
 a = StackOfPlates(2)
 for _ in range(10):
     a.push(random.randint(1, 100))
